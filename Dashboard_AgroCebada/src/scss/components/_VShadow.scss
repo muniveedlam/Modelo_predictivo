@@ -1,0 +1,22 @@
+@use "../variables" as *;
+
+.v-menu {
+  > .v-overlay__content {
+    > .v-sheet {
+      box-shadow: $box-shadow;
+    }
+  }
+}
+
+@each $color, $value in $theme-colors {
+  .#{$color}-shadow {
+    box-shadow: 0 14px 12px rgba(#{$value}, 0.2);
+    &:hover {
+      box-shadow: none;
+    }
+  }
+  
+  .custom-#{$color}-shadow {
+    box-shadow: var(--v-custom-shadows-#{$color});
+  }
+}

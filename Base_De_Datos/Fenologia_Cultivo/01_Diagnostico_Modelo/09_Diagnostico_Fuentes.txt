@@ -1,0 +1,16 @@
+BLOQUES
+  BLOCK  N_FEATURES  MEDIAN_AVAILABLE_PCT
+  BASIC         299                 100.0
+CLIMATE           5                 100.0
+    PRO          52                 100.0
+SPATIAL           5                 100.0
+ STATIC           3                 100.0
+   TOPO           9                 100.0
+
+BASIC
+{'status': 'ok', 'signals': 46, 'feature_count': 299, 'rows_before_cloud': 11462, 'rows_after_cloud': 6926, 'cloud_applied': True, 'parcels_after': 138, 'signal_cols': ['ndvi_promedio', 'ndvi_std', 'evi_promedio', 'evi_std', 'crc_promedio', 'crc_std', 'mcrc_promedio', 'mcrc_std', 'ndsvi_promedio', 'ndsvi_std', 'srndi_promedio', 'srndi_std', 'mra_promedio', 'mra_std', 'lai_promedio', 'lai_std', 'fapar_promedio', 'fapar_std', 'savi_promedio', 'savi_std', 'vi6t_promedio', 'vi6t_std', 'ndti_promedio', 'ndti_std', 'sti_promedio', 'sti_std', 'ndwi_promedio', 'ndwi_std', 'endwi_promedio', 'endwi_std', 'msi_promedio', 'msi_std', 'emsi_promedio', 'emsi_std', 'dswi2_promedio', 'dswi2_std', 'dswi3_promedio', 'dswi3_std', 'dswi4_promedio', 'dswi4_std', 'dswi5_promedio', 'dswi5_std', 'nddi_promedio', 'nddi_std', 'enddi_promedio', 'enddi_std']}
+
+PRO
+{'status': 'ok', 'signals': 8, 'feature_count': 52, 'rows_before_cloud': 18388, 'rows_after_cloud': 11128, 'cloud_applied': True, 'parcels_after': 138, 'signal_cols': ['ndvi_promedio', 'ndvi_std', 'evi_promedio', 'evi_std', 'lai_promedio', 'lai_std', 'msavi_promedio', 'msavi_std']}
+
+Referencia SLOPE_ONLY histórica: 0.477161

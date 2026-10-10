@@ -1,0 +1,21 @@
+@use "@/scss/grid/mixins" as breakpoints;
+
+.v-alert {
+  line-height: 1.60;
+  letter-spacing: normal;
+
+  .v-alert__close,
+  .v-alert__append {
+    align-self: center;
+  }
+}
+
+.v-alert__prepend {
+  align-self: center;
+
+  .mdi {
+    width: 18px !important;
+    height: 18px !important;
+    font-size: 18px !important;
+  }
+}

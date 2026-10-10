@@ -1,0 +1,15 @@
+@use "@/scss/grid/mixins" as breakpoints;
+
+.v-footer {
+  background: rgb(var(--v-theme-containerBg));
+  margin-top: auto;
+  position: unset;
+
+  a {
+    text-decoration: unset;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

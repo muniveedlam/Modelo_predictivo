@@ -1,0 +1,40 @@
+@use "@/scss/grid/mixins" as breakpoints;
+
+.profileBtn {
+  height: 44px !important;
+  margin: 0 20px 0 10px !important;
+  padding: 0 6px;
+  .v-avatar {
+    width: 32px;
+    height: 32px;
+    img {
+      width: 32px;
+      height: 32px;
+    }
+  }
+}
+
+@include breakpoints.max("sm") {
+  .profileBtn {
+    min-width: 42px;
+    margin: 0 12px 0 0 !important;
+    .v-avatar {
+      width: 24px;
+      height: 24px;
+      img {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+  .notification-dropdown {
+    width: 332px !important;
+    .v-list-item__content {
+      .d-inline-flex {
+        .text-label-small {
+          min-width: 50px;
+        }
+      }
+    }
+  }
+}

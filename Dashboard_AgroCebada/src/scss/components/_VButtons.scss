@@ -1,0 +1,93 @@
+@use "../variables" as *;
+
+//
+// Light Buttons
+//
+
+.v-btn {
+  &.bg-lightprimary {
+
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: rgb(var(--v-theme-primary)) !important;
+      color: $white !important;
+    }
+  }
+
+  &.bg-lightsecondary {
+
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: rgb(var(--v-theme-secondary)) !important;
+      color: $white !important;
+    }
+  }
+
+  &.text-facebook {
+
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: rgb(var(--v-theme-facebook)) !important;
+      color: $white !important;
+    }
+  }
+
+  &.text-twitter {
+
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: rgb(var(--v-theme-twitter)) !important;
+      color: $white !important;
+    }
+  }
+
+  &.text-linkedin {
+
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: rgb(var(--v-theme-linkedin)) !important;
+      color: $white !important;
+    }
+  }
+}
+
+.v-btn {
+  text-transform: capitalize;
+  letter-spacing: $btn-letter-spacing;
+  font-weight: 400;
+  font-size: 0.875rem;
+
+  &:hover {
+    >.v-btn__overlay {
+      --v-hover-opacity: 0.106;
+    }
+  }
+}
+
+.v-btn--size-small {
+  --v-btn-height: 28px;
+  font-size: 0.75rem;
+}
+
+.v-btn--size-x-small {
+  font-size: 0.63rem;
+}
+
+.v-btn--size-large {
+  --v-btn-height: 42px;
+}
+
+.v-btn--icon {
+  &.v-btn--density-comfortable {
+    margin-left: -1px;
+  }
+
+  &.v-btn--size-x-large {
+    --v-btn-height: 50px;
+  }
+}

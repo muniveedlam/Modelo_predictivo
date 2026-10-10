@@ -1,0 +1,189 @@
+===== Errores_Cebada_197.py (código 0) =====
+==========================================================================
+AUDITOR�A DEL MODELO CAMPE�N � CEBADA
+==========================================================================
+Maestro: C:\Users\edu12\Downloads\Modelo_predictivo\Prediccion_Errores\ejecucion_dashboard\Cebada_197.csv
+Entrenamiento: 138 | Sin rendimiento: 59
+M�todo: 50_SPLITS_ORIGINALES
+Salida: C:\Users\edu12\Downloads\Modelo_predictivo\Prediccion_Errores\ejecucion_dashboard\Tabla_Errores_Cebada
+Archivo de particiones: C:\Users\edu12\Downloads\Modelo_predictivo\Prediccion_Errores\ejecucion_dashboard\splits_50_ids_EXACTOS.csv
+Validaciones originales: 10/50
+Validaciones originales: 20/50
+Validaciones originales: 30/50
+Validaciones originales: 40/50
+Validaciones originales: 50/50
+
+RESULTADOS
+Parcelas evaluadas: 135 / 138
+Predicciones fuera de muestra: 2100
+MAE OOF: 0.331051 t/ha
+RMSE pooled OOF: 0.487604 t/ha
+RMSE MEDIO DE 50 FOLDS: 0.481502 t/ha
+SANITY CHECK: reproduce la m�trica oficial 0.481502 (redondeada).
+
+TOP 11 de mayor RMSE por parcela:
+ID_POLIGONO    Municipio  REAL_T_HA  PRED_MEDIA_OOF_T_HA  ERROR_MEDIO_T_HA  RMSE_PARCELA_T_HA  N_VALIDACIONES
+    AGC_171 Chignahuapan     2.1500               4.3999            2.2499             2.2502         16.0000
+    AGC_015 Chignahuapan     2.6400               4.5855            1.9455             1.9457         15.0000
+    AGC_024 Chignahuapan     3.0300               4.3629            1.3329             1.3339         15.0000
+    AGC_162 Chignahuapan     5.5900               4.4174           -1.1726             1.1735         20.0000
+    AGC_034  Singuilucan     2.0000               3.0788            1.0788             1.0805         15.0000
+    AGC_127 Chignahuapan     5.5700               4.5896           -0.9804             0.9825         18.0000
+    AGC_049 Chignahuapan     5.5300               4.6165           -0.9135             0.9157         20.0000
+    AGC_055 Chignahuapan     5.4500               4.5472           -0.9028             0.9042         15.0000
+    AGC_195 Chignahuapan     3.6800               4.5568            0.8768             0.8784         14.0000
+    AGC_026 Chignahuapan     3.5500               4.4153            0.8653             0.8662         18.0000
+    AGC_069 Chignahuapan     5.4600               4.6128           -0.8472             0.8497         18.0000
+
+Sin evaluaci�n (�nico entrenamiento en municipio): AGC_047, AGC_048, AGC_164
+
+TABLAS GUARDADAS EN: C:\Users\edu12\Downloads\Modelo_predictivo\Prediccion_Errores\ejecucion_dashboard\Tabla_Errores_Cebada
+
+NOTA: los 59 casos PREDICCION no tienen rendimiento real:
+sus errores no se pueden calcular con el CSV de env�o.
+
+
+===== Generar_Prediccion_Cebada.py (código 0) =====
+====================================================================================================
+PREDICCION FINAL � AGROCEBADA
+====================================================================================================
+
+Train      : 138
+Prediccion : 59
+
+====================================================================================================
+ESTADISTICAS MUNICIPALES TRAIN
+====================================================================================================
+                                n      mean       std   min   max
+Municipio                                                        
+Almoloya                       10  4.521000  0.188470  4.14  4.87
+Apan                            1  3.000000       NaN  3.00  3.00
+Calpulalpan                    30  3.000000  0.371391  2.50  3.50
+Chignahuapan                   71  4.477324  0.584395  2.15  5.59
+Cuautepec de Hinojosa           5  4.598000  0.150566  4.40  4.79
+Emiliano Zapata                 3  3.500000  0.000000  3.50  3.50
+Nanacamilpa de Mariano Arista   1  2.500000       NaN  2.50  2.50
+Singuilucan                    16  3.081250  0.433926  2.00  3.70
+Tepeapulco                      1  4.450000       NaN  4.45  4.45
+
+Municipios elegibles para correcci�n de �rea:
+  - Almoloya
+  - Calpulalpan
+  - Chignahuapan
+  - Cuautepec de Hinojosa
+  - Singuilucan
+
+====================================================================================================
+PARAMETROS DEL MODELO FINAL
+====================================================================================================
+
+Beta area raw      = -0.134249
+Lambda             = 0.75
+Beta contraida     = -0.100687
+Std referencia     = 0.371391
+
+Escala por municipio:
+Almoloya                         0.507472
+Apan                             0.000000
+Calpulalpan                      1.000000
+Chignahuapan                     1.000000
+Cuautepec de Hinojosa            0.405410
+Emiliano Zapata                  0.000000
+Nanacamilpa de Mariano Arista    0.000000
+Singuilucan                      1.000000
+Tepeapulco                       0.000000
+
+====================================================================================================
+RESUMEN DE LAS 59 PREDICCIONES
+====================================================================================================
+                    Municipio  N_PRED  N_TRAIN  MEDIA_TRAIN  PRED_MEDIA  PRED_MIN  PRED_MAX  CORRECCION_MEDIA  CORRECCION_MAX_ABS  N_AREA_CLIPPED
+                 Chignahuapan      29       71     4.477324    4.482419  4.351754  4.703806          0.005095            0.226482               1
+                  Calpulalpan      14       30     3.000000    3.003611  2.949538  3.094749          0.003611            0.094749               0
+                  Singuilucan       7       16     3.081250    3.036381  2.955690  3.115764         -0.044869            0.125560               0
+                     Almoloya       4       10     4.521000    4.534081  4.459590  4.574262          0.013081            0.061410               1
+        Cuautepec de Hinojosa       4        5     4.598000    4.542039  4.526486  4.553583         -0.055961            0.071514               0
+Nanacamilpa de Mariano Arista       1        1     2.500000    2.500000  2.500000  2.500000          0.000000            0.000000               1
+
+====================================================================================================
+PREDICCIONES INDIVIDUALES
+====================================================================================================
+ID_POLIGONO                     Municipio  AREA_HA  N_TRAIN_MUNICIPIO  MEDIA_MUNICIPAL  STD_TRAIN_MUNICIPIO  AREA_SCALE  DELTA_LOG_AREA  CORRECCION_AREA  FUE_CLIPPED  Y_FUE_CLIPPED CONFIANZA_ESTRUCTURAL  PREDICCION_T_HA
+    AGC_065                      Almoloya    60.88                 10         4.521000             0.188470    0.507472        1.201862        -0.061410         True          False                 MEDIA         4.459590
+    AGC_082                      Almoloya     2.77                 10         4.521000             0.188470    0.507472       -0.990537         0.050612        False          False                 MEDIA         4.571612
+    AGC_107                      Almoloya     2.63                 10         4.521000             0.188470    0.507472       -1.042401         0.053262        False          False                 MEDIA         4.574262
+    AGC_128                      Almoloya     6.15                 10         4.521000             0.188470    0.507472       -0.192933         0.009858        False          False                 MEDIA         4.530858
+    AGC_025                   Calpulalpan     2.00                 30         3.000000             0.371391    1.000000       -0.941027         0.094749        False          False                  ALTA         3.094749
+    AGC_027                   Calpulalpan     8.46                 30         3.000000             0.371391    1.000000        0.501175        -0.050462        False          False                  ALTA         2.949538
+    AGC_029                   Calpulalpan     5.90                 30         3.000000             0.371391    1.000000        0.140779        -0.014175        False          False                  ALTA         2.985825
+    AGC_039                   Calpulalpan     7.71                 30         3.000000             0.371391    1.000000        0.408344        -0.041115        False          False                  ALTA         2.958885
+    AGC_050                   Calpulalpan     2.42                 30         3.000000             0.371391    1.000000       -0.750406         0.075556        False          False                  ALTA         3.075556
+    AGC_061                   Calpulalpan     7.23                 30         3.000000             0.371391    1.000000        0.344065        -0.034643        False          False                  ALTA         2.965357
+    AGC_071                   Calpulalpan     5.21                 30         3.000000             0.371391    1.000000        0.016406        -0.001652        False          False                  ALTA         2.998348
+    AGC_075                   Calpulalpan     3.90                 30         3.000000             0.371391    1.000000       -0.273197         0.027507        False          False                  ALTA         3.027507
+    AGC_086                   Calpulalpan     4.73                 30         3.000000             0.371391    1.000000       -0.080249         0.008080        False          False                  ALTA         3.008080
+    AGC_087                   Calpulalpan     5.66                 30         3.000000             0.371391    1.000000        0.099250        -0.009993        False          False                  ALTA         2.990007
+    AGC_093                   Calpulalpan     3.71                 30         3.000000             0.371391    1.000000       -0.323142         0.032536        False          False                  ALTA         3.032536
+    AGC_147                   Calpulalpan     6.80                 30         3.000000             0.371391    1.000000        0.282749        -0.028469        False          False                  ALTA         2.971531
+    AGC_173                   Calpulalpan     3.60                 30         3.000000             0.371391    1.000000       -0.353240         0.035567        False          False                  ALTA         3.035567
+    AGC_183                   Calpulalpan     7.85                 30         3.000000             0.371391    1.000000        0.426340        -0.042927        False          False                  ALTA         2.957073
+    AGC_011                  Chignahuapan     7.17                 71         4.477324             0.584395    1.000000        0.688115        -0.069284        False          False                  ALTA         4.408040
+    AGC_016                  Chignahuapan     7.47                 71         4.477324             0.584395    1.000000        0.729105        -0.073411        False          False                  ALTA         4.403913
+    AGC_028                  Chignahuapan     1.86                 71         4.477324             0.584395    1.000000       -0.661214         0.066575        False          False                  ALTA         4.543899
+    AGC_031                  Chignahuapan     1.98                 71         4.477324             0.584395    1.000000       -0.598693         0.060280        False          False                  ALTA         4.537604
+    AGC_036                  Chignahuapan     5.00                 71         4.477324             0.584395    1.000000        0.327648        -0.032990        False          False                  ALTA         4.444334
+    AGC_043                  Chignahuapan     7.15                 71         4.477324             0.584395    1.000000        0.685322        -0.069003        False          False                  ALTA         4.408321
+    AGC_063                  Chignahuapan    12.54                 71         4.477324             0.584395    1.000000        1.247133        -0.125570        False          False                  ALTA         4.351754
+    AGC_076                  Chignahuapan     1.01                 71         4.477324             0.584395    1.000000       -1.271840         0.128057        False          False                  ALTA         4.605381
+    AGC_085                  Chignahuapan     5.50                 71         4.477324             0.584395    1.000000        0.422958        -0.042586        False          False                  ALTA         4.434738
+    AGC_088                  Chignahuapan     5.91                 71         4.477324             0.584395    1.000000        0.494856        -0.049825        False          False                  ALTA         4.427499
+    AGC_091                  Chignahuapan     0.35                 71         4.477324             0.584395    1.000000       -2.249374         0.226482         True          False                  ALTA         4.703806
+    AGC_094                  Chignahuapan     3.63                 71         4.477324             0.584395    1.000000        0.007442        -0.000749        False          False                  ALTA         4.476575
+    AGC_095                  Chignahuapan     1.33                 71         4.477324             0.584395    1.000000       -0.996611         0.100345        False          False                  ALTA         4.577669
+    AGC_116                  Chignahuapan     7.43                 71         4.477324             0.584395    1.000000        0.723736        -0.072871        False          False                  ALTA         4.404453
+    AGC_126                  Chignahuapan     5.75                 71         4.477324             0.584395    1.000000        0.467410        -0.047062        False          False                  ALTA         4.430262
+    AGC_136                  Chignahuapan     1.69                 71         4.477324             0.584395    1.000000       -0.757062         0.076226        False          False                  ALTA         4.553550
+    AGC_142                  Chignahuapan     1.29                 71         4.477324             0.584395    1.000000       -1.027148         0.103420        False          False                  ALTA         4.580744
+    AGC_143                  Chignahuapan    11.48                 71         4.477324             0.584395    1.000000        1.158816        -0.116677        False          False                  ALTA         4.360647
+    AGC_153                  Chignahuapan     1.99                 71         4.477324             0.584395    1.000000       -0.593656         0.059773        False          False                  ALTA         4.537097
+    AGC_154                  Chignahuapan     1.49                 71         4.477324             0.584395    1.000000       -0.883014         0.088908        False          False                  ALTA         4.566232
+    AGC_158                  Chignahuapan    11.22                 71         4.477324             0.584395    1.000000        1.135908        -0.114371        False          False                  ALTA         4.362953
+    AGC_175                  Chignahuapan     1.41                 71         4.477324             0.584395    1.000000       -0.938201         0.094464        False          False                  ALTA         4.571788
+    AGC_177                  Chignahuapan     5.66                 71         4.477324             0.584395    1.000000        0.451634        -0.045474        False          False                  ALTA         4.431850
+    AGC_182                  Chignahuapan     4.13                 71         4.477324             0.584395    1.000000        0.136487        -0.013742        False          False                  ALTA         4.463581
+    AGC_186                  Chignahuapan    11.70                 71         4.477324             0.584395    1.000000        1.177799        -0.118589        False          False                  ALTA         4.358735
+    AGC_188                  Chignahuapan     2.34                 71         4.477324             0.584395    1.000000       -0.431639         0.043460        False          False                  ALTA         4.520784
+    AGC_190                  Chignahuapan     5.01                 71         4.477324             0.584395    1.000000        0.329646        -0.033191        False          False                  ALTA         4.444133
+    AGC_191                  Chignahuapan     1.75                 71         4.477324             0.584395    1.000000       -0.722174         0.072713        False          False                  ALTA         4.550037
+    AGC_192                  Chignahuapan     2.14                 71         4.477324             0.584395    1.000000       -0.520984         0.052456        False          False                  ALTA         4.529780
+    AGC_052         Cuautepec de Hinojosa     6.23                  5         4.598000             0.150566    0.405410        1.088133        -0.044417        False          False                  BAJA         4.553583
+    AGC_130         Cuautepec de Hinojosa    12.10                  5         4.598000             0.150566    0.405410        1.751963        -0.071514        False          False                  BAJA         4.526486
+    AGC_149         Cuautepec de Hinojosa     8.99                  5         4.598000             0.150566    0.405410        1.454870        -0.059387        False          False                  BAJA         4.538613
+    AGC_174         Cuautepec de Hinojosa     6.89                  5         4.598000             0.150566    0.405410        1.188828        -0.048527        False          False                  BAJA         4.549473
+    AGC_120 Nanacamilpa de Mariano Arista     7.47                  1         2.500000                  NaN    0.000000        0.000000        -0.000000         True          False              MUY_BAJA         2.500000
+    AGC_003                   Singuilucan    18.68                 16         3.081250             0.433926    1.000000        1.247033        -0.125560        False          False                 MEDIA         2.955690
+    AGC_030                   Singuilucan    13.05                 16         3.081250             0.433926    1.000000        0.888368        -0.089447        False          False                 MEDIA         2.991803
+    AGC_042                   Singuilucan     3.81                 16         3.081250             0.433926    1.000000       -0.342791         0.034514        False          False                 MEDIA         3.115764
+    AGC_113                   Singuilucan    10.58                 16         3.081250             0.433926    1.000000        0.678545        -0.068320        False          False                 MEDIA         3.012930
+    AGC_118                   Singuilucan     4.42                 16         3.081250             0.433926    1.000000       -0.194280         0.019561        False          False                 MEDIA         3.100811
+    AGC_129                   Singuilucan     8.16                 16         3.081250             0.433926    1.000000        0.418824        -0.042170        False          False                 MEDIA         3.039080
+    AGC_156                   Singuilucan     8.20                 16         3.081250             0.433926    1.000000        0.423714        -0.042662        False          False                 MEDIA         3.038588
+
+====================================================================================================
+CONTROLES
+====================================================================================================
+
+Parcelas predichas: 59
+�reas clipped: 3
+Predicciones clipped por yield: 0
+Predicci�n m�nima: 2.5000
+Predicci�n m�xima: 4.7038
+
+====================================================================================================
+ARCHIVOS
+====================================================================================================
+C:\Users\edu12\Downloads\Modelo_predictivo\Prediccion_Errores\ejecucion_dashboard\Prediccion_Final_Cebada\Predicciones_59_Detalladas.csv
+C:\Users\edu12\Downloads\Modelo_predictivo\Prediccion_Errores\ejecucion_dashboard\Prediccion_Final_Cebada\Submission_59.csv
+C:\Users\edu12\Downloads\Modelo_predictivo\Prediccion_Errores\ejecucion_dashboard\Prediccion_Final_Cebada\Resumen_Predicciones_Municipio.csv
+
+MODELO: municipio + log(area) con beta global contra�da, escalado por variabilidad municipal y clipping conservador.
+

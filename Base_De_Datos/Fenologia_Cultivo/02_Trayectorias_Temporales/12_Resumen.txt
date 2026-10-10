@@ -1,0 +1,40 @@
+EXPERIMENTO 14 — TRAYECTORIAS TEMPORALES
+
+ALL=364
+TRAJ=130
+CONTEXT=13
+TRAJ_CONTEXT=143
+ALL_PLUS_TRAJ=494
+
+COBERTURA
+SENSOR INDEX  N_PARCELS_ANY  N_PARCELS_GE3_PERIODS  MEDIAN_N_PERIODS  MIN_N_PERIODS  MAX_N_PERIODS
+ BASIC  NDVI            138                    138              17.0           15.0           20.0
+ BASIC   EVI            138                    138              17.0           15.0           20.0
+ BASIC   LAI            138                    138              17.0           15.0           20.0
+ BASIC  NDWI            138                    138              17.0           15.0           20.0
+ BASIC   MSI            138                    138              17.0           15.0           20.0
+ BASIC  NDDI              0                      0               NaN            NaN            NaN
+ BASIC  EMSI            138                    138              17.0           15.0           20.0
+ BASIC  NDTI              0                      0               NaN            NaN            NaN
+ BASIC   STI              0                      0               NaN            NaN            NaN
+   PRO  NDVI            138                    138              20.0           17.0           21.0
+   PRO   EVI            138                    138              20.0           17.0           21.0
+   PRO   LAI            138                    138              20.0           17.0           21.0
+   PRO MSAVI            138                    138              20.0           17.0           21.0
+
+RESUMEN
+              MODEL  N_MUNICIPIOS_ALL  N_MUNICIPIOS_CORE_NGE3  MACRO_RMSE_ALL  MACRO_RMSE_CORE  POOLED_RMSE  MACRO_MAE_ALL  MACRO_ABS_BIAS_ALL  MACRO_CENTERED_RMSE_CORE  MEAN_SPEARMAN_CORE  MEDIAN_SPEARMAN_CORE  WORST_MUNICIPIO_RMSE
+          RIDGE_ALL                 9                       6        0.682213         0.720944     1.089150       0.595907            0.554988                  0.468126           -0.067397             -0.041818              1.362984
+RIDGE_ALL_PLUS_TRAJ                 9                       6        0.685480         0.761990     1.016484       0.613435            0.548034                  0.472336           -0.074506             -0.158516              1.186561
+            XGB_ALL                 9                       6        0.751771         0.891633     1.020783       0.676173            0.651150                  0.470179           -0.090427              0.100142              1.360999
+           XGB_TRAJ                 9                       6        0.755679         0.843488     0.970868       0.674368            0.636337                  0.473388            0.000697              0.006206              1.347460
+  XGB_ALL_PLUS_TRAJ                 9                       6        0.762799         0.877995     1.021303       0.685023            0.666614                  0.458237           -0.061255              0.093231              1.333876
+         RIDGE_TRAJ                 9                       6        0.781340         0.858959     0.884982       0.711310            0.645091                  0.503589           -0.053939             -0.071458              1.225904
+        GLOBAL_MEAN                 9                       6        0.919777         0.891904     1.153027       0.891165            0.883695                  0.279838                 NaN                   NaN              1.465985
+
+DELTAS
+RIDGE ALL->ALL+TRAJ ALL9 -0.003267
+RIDGE ALL->ALL+TRAJ CORE -0.041046
+XGB ALL->ALL+TRAJ ALL9 -0.011028
+XGB ALL->ALL+TRAJ CORE +0.013639
+XGB vs RIDGE ALL+TRAJ -0.077319

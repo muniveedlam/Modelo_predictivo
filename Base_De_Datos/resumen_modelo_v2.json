@@ -1,0 +1,33 @@
+{
+  "periodo_satelital_clima": "2025-04-01 a 2025-10-31",
+  "parcelas": 197,
+  "entrenamiento_con_objetivo": 138,
+  "prediccion_sin_objetivo": 59,
+  "predictores_iniciales": 27,
+  "columnas_control_calidad": 17,
+  "candidatos_temporales_separados": 56,
+  "alternativa_climatica_bilineal": 24,
+  "archivos_salida": [
+    "LEEME_modelo.txt",
+    "candidatos_temporales_mensuales.csv",
+    "clima_bilineal_candidato.csv",
+    "comparacion_clima_centroide_bilineal.csv",
+    "comparacion_metodos_clima.csv",
+    "control_calidad_predictores.csv",
+    "diccionario_clima_bilineal.csv",
+    "diccionario_variables.csv",
+    "entrenamiento_138.csv",
+    "faltantes_candidatos_temporales.csv",
+    "faltantes_clima_bilineal.csv",
+    "faltantes_predictores.csv",
+    "prediccion_59.csv",
+    "resumen_modelo.csv",
+    "resumen_modelo.json",
+    "tabla_maestra_modelo.csv"
+  ],
+  "clima": "set base: píxel cercano al centroide; alternativa bilineal separada. Ráster 0.05 grados.",
+  "topografia": "media zonal sobre celdas tocadas de ráster de 120 m",
+  "faltantes": "conservados; no se imputó, filtró por nubosidad ni escaló; mensualidades quedan como candidatos separados",
+  "sensores": "Planet, Sentinel-2 y Landsat permanecen separados",
+  "leakage": "CONJUNTO e ID_POLIGONO son metadatos; RENDIMIENTO_T_HA es objetivo. Ninguno forma parte de predictores."
+}
