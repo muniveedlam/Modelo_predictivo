@@ -217,7 +217,7 @@ const formatNumber = (value: number | null, digits = 3) => value === null ? '—
         </div>
         <v-card class="data-card" rounded="xl" elevation="0">
           <VueApexCharts type="line" height="340" :options="priorityOptions" :series="prioritySeries" />
-          <p class="data-note">Promedios por parcela y periodo de 10 días. Abril–octubre de 2025; nubosidad máxima de 20% cuando está disponible. Muestra: 138 parcelas de entrenamiento.</p>
+          <p class="data-note">Promedios por parcela y periodo de 10 días (Mes/Etapa). Abril–octubre de 2025; nubosidad máxima de 20% cuando está disponible.</p>
         </v-card>
       </section>
 
@@ -237,7 +237,7 @@ const formatNumber = (value: number | null, digits = 3) => value === null ? '—
         </div>
         <v-card class="data-card" rounded="xl" elevation="0">
           <VueApexCharts type="line" height="340" :options="municipalityOptions" :series="municipalitySeries" />
-          <p class="data-note">El criterio n≥5 se calcula con parcelas del conjunto de entrenamiento. Se muestran los promedios por municipio y periodo.</p>
+          <p class="data-note">El criterio n≥5 se calcula con parcelas del conjunto de entrenamiento. Se muestran los promedios por municipio y periodo (Mes/Etapa).</p>
         </v-card>
       </section>
 
@@ -295,8 +295,204 @@ const formatNumber = (value: number | null, digits = 3) => value === null ? '—
         </div>
         <p class="data-note section-note">Las columnas BASIC y PRO conservan los grupos de sensores definidos en el experimento; no se reinterpretan como sensores individuales.</p>
       </section>
+
+
+         <!-- SECCIÓN 1: ¿PARA QUÉ SIRVE? (FLUJO DE 5 PASOS) -->
+      <section class="phenology-section">
+        <v-card class="info-card" rounded="xl" elevation="0">
+          <div class="card-kicker">¿PARA QUÉ SIRVE?</div>
+          <h2 class="card-main-title">Observación  e información </h2>
+          <p class="card-subtitle">
+            Seguir una parcela durante varios meses permite distinguir cultivos que podrían parecer similares en una sola fecha, pero que evolucionan de manera diferente.
+          </p>
+
+          <div class="flow-container">
+            <div class="flow-box">
+              <span class="step-num">01</span>
+              <strong>Observaciones satelitales</strong>
+            </div>
+            <div class="flow-arrow">→</div>
+
+            <div class="flow-box">
+              <span class="step-num">02</span>
+              <strong>Evolución en el tiempo</strong>
+            </div>
+            <div class="flow-arrow">→</div>
+
+            <div class="flow-box">
+              <span class="step-num">03</span>
+              <strong>Medidas de la trayectoria</strong>
+            </div>
+            <div class="flow-arrow">→</div>
+
+            <div class="flow-box">
+              <span class="step-num">04</span>
+              <strong>Clima y terreno</strong>
+            </div>
+            <div class="flow-arrow">→</div>
+
+            <div class="flow-box">
+              <span class="step-num">05</span>
+              <strong>Estimación del rendimiento</strong>
+            </div>
+          </div>
+        </v-card>
+      </section>
+
+      <!-- SECCIÓN 2: GLOSARIO RÁPIDO (TABLA DE MEDIDAS) -->
+      <section class="phenology-section">
+        <v-card class="info-card" rounded="xl" elevation="0">
+          <div class="card-kicker">GLOSARIO RÁPIDO</div>
+          <h2 class="card-main-title">Guía de Medidas</h2>
+
+          <div class="glossary-list">
+            <div class="glossary-item">
+              <div class="glossary-term">AUC</div>
+              <div class="glossary-def">
+                <strong>Señal acumulada</strong>
+                <p>Resume cuánto se mantuvo la señal durante el periodo observado.</p>
+              </div>
+            </div>
+
+            <div class="glossary-item">
+              <div class="glossary-term">Pico</div>
+              <div class="glossary-def">
+                <strong>Máximo espectral</strong>
+                <p>Indica en qué periodo la parcela alcanzó el valor más alto del índice.</p>
+              </div>
+            </div>
+
+            <div class="glossary-item">
+              <div class="glossary-term">Amplitud</div>
+              <div class="glossary-def">
+                <strong>Rango de cambio</strong>
+                <p>Diferencia entre el valor máximo y el mínimo de la trayectoria.</p>
+              </div>
+            </div>
+
+            <div class="glossary-item">
+              <div class="glossary-term">Subida</div>
+              <div class="glossary-def">
+                <strong>Velocidad de incremento</strong>
+                <p>Describe qué tan rápido aumenta la señal antes del máximo.</p>
+              </div>
+            </div>
+
+            <div class="glossary-item">
+              <div class="glossary-term">Descenso</div>
+              <div class="glossary-def">
+                <strong>Velocidad de disminución</strong>
+                <p>Describe qué tan rápido disminuye la señal después del máximo.</p>
+              </div>
+            </div>
+          </div>
+        </v-card>
+      </section>
+
+      <!-- SECCIÓN 3: RECORRIDO DE LECTURA (4 PREGUNTAS EN GRID) -->
+      <section class="phenology-section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">RECORRIDO DE LECTURA</p>
+            <h2>Cuatro preguntas para entender las visualizaciones</h2>
+            <p class="section-description">Cada gráfica responde una pregunta diferente.</p>
+          </div>
+        </div>
+
+        <div class="reading-grid">
+          <!-- Tarjeta 01 -->
+          <v-card class="reading-card" rounded="xl" elevation="0">
+            <div class="pill-badge">
+              <span class="badge-num">01</span>
+              <span>EVOLUCIÓN TEMPORAL</span>
+            </div>
+            <h3>Cómo cambia el cultivo con el tiempo</h3>
+            
+            <div class="reading-block">
+              <div class="sub-kicker">QUÉ REPRESENTA</div>
+              <p>Cada línea sigue la respuesta observada por un sensor durante varios meses.</p>
+            </div>
+            <div class="reading-block">
+              <div class="sub-kicker">QUÉ OBSERVAR</div>
+              <p>Observa cuándo la señal aumenta, cuándo alcanza valores altos y cómo disminuye después.</p>
+            </div>
+            <div class="notice-box">
+              <div class="notice-kicker">CONSIDERA QUE...</div>
+              <p>Una señal alta no significa, por sí sola, mayor rendimiento ni una etapa biológica específica.</p>
+            </div>
+          </v-card>
+
+          <!-- Tarjeta 02 -->
+          <v-card class="reading-card" rounded="xl" elevation="0">
+            <div class="pill-badge">
+              <span class="badge-num">02</span>
+              <span>COMPARACIÓN TERRITORIAL</span>
+            </div>
+            <h3>Cómo cambia entre regiones</h3>
+            
+            <div class="reading-block">
+              <div class="sub-kicker">QUÉ REPRESENTA</div>
+              <p>Cada línea resume el comportamiento temporal de las parcelas de un municipio para el mismo índice.</p>
+            </div>
+            <div class="reading-block">
+              <div class="sub-kicker">QUÉ OBSERVAR</div>
+              <p>Compara la forma de las curvas, el momento en que cambian y cuándo alcanzan sus valores más altos.</p>
+            </div>
+            <div class="notice-box">
+              <div class="notice-kicker">CONSIDERA QUE...</div>
+              <p>Las diferencias muestran patrones regionales; la gráfica por sí sola no explica la causa.</p>
+            </div>
+          </v-card>
+
+          <!-- Tarjeta 03 -->
+          <v-card class="reading-card" rounded="xl" elevation="0">
+            <div class="pill-badge">
+              <span class="badge-num">03</span>
+              <span>MÁXIMO ESPECTRAL</span>
+            </div>
+            <h3>Cuándo alcanza su mayor señal</h3>
+            
+            <div class="reading-block">
+              <div class="sub-kicker">QUÉ REPRESENTA</div>
+              <p>Para cada parcela se identifica el periodo en el que el índice alcanza su valor máximo.</p>
+            </div>
+            <div class="reading-block">
+              <div class="sub-kicker">QUÉ OBSERVAR</div>
+              <p>Una barra alta significa que muchas parcelas alcanzaron su máxima señal en fechas similares.</p>
+            </div>
+            <div class="notice-box">
+              <div class="notice-kicker">CONSIDERA QUE...</div>
+              <p>El máximo espectral no equivale automáticamente a espigamiento, floración, madurez o cosecha.</p>
+            </div>
+          </v-card>
+
+          <!-- Tarjeta 04 -->
+          <v-card class="reading-card" rounded="xl" elevation="0">
+            <div class="pill-badge">
+              <span class="badge-num">04</span>
+              <span>MEDIDAS TEMPORALES</span>
+            </div>
+            <h3>Cómo resumimos una trayectoria</h3>
+            
+            <div class="reading-block">
+              <div class="sub-kicker">QUÉ REPRESENTA</div>
+              <p>Una curva contiene muchos puntos. Para comparar parcelas, resumimos su forma mediante medidas numéricas.</p>
+            </div>
+            <div class="reading-block">
+              <div class="sub-kicker">QUÉ OBSERVAR</div>
+              <p>AUC resume la señal acumulada; el pico indica cuándo ocurrió el máximo; la amplitud mide cuánto cambió; subida y descenso describen la velocidad de cambio.</p>
+            </div>
+            <div class="notice-box">
+              <div class="notice-kicker">CONSIDERA QUE...</div>
+              <p>Estas medidas describen la trayectoria satelital; no son valores directos de rendimiento.</p>
+            </div>
+          </v-card>
+        </div>
+      </section>
     </template>
   </v-container>
+
+
 </template>
 
 <style scoped>
@@ -341,5 +537,213 @@ h1 { margin-bottom: 0; color: #173f2c; font-size: clamp(22px, 3vw, 30px); font-w
   .feature-header { flex-direction: column; }
   .data-card { padding: 15px 12px 13px; }
   .table-pagination { align-items: start; flex-direction: column; }
+}
+
+/* Tarjetas contenedoras principales */
+.info-card {
+  padding: 26px 28px;
+  border: 1px solid #e5ebe6;
+  background: #ffffff;
+  box-shadow: 0 4px 18px rgba(32, 57, 41, 0.035);
+}
+
+.card-kicker {
+  color: #628071;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  margin-bottom: 6px;
+}
+
+.card-main-title {
+  margin: 0 0 10px;
+  color: #173f2c;
+  font-size: 21px;
+  font-weight: 650;
+  letter-spacing: -0.2px;
+}
+
+.card-subtitle {
+  margin: 0 0 22px;
+  color: #6c7d72;
+  font-size: 13px;
+  line-height: 1.55;
+  max-width: 820px;
+}
+
+/* 1. Flujo de 5 pasos */
+.flow-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 4px 0 10px;
+}
+
+.flow-box {
+  flex: 1;
+  min-width: 145px;
+  padding: 18px 16px;
+  border: 1px solid #e7ede8;
+  border-radius: 14px;
+  background: #f8faf8;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.step-num {
+  font-size: 11px;
+  font-weight: 700;
+  color: #8fa093;
+}
+
+.flow-box strong {
+  font-size: 12.5px;
+  color: #1b4530;
+  line-height: 1.35;
+}
+
+.flow-arrow {
+  color: #9cb1a2;
+  font-size: 16px;
+  font-weight: 600;
+  flex: none;
+}
+
+/* 2. Glosario de Trayectoria */
+.glossary-list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 14px;
+}
+
+.glossary-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 16px 0;
+  border-top: 1px solid #eef2ee;
+  gap: 32px;
+}
+
+.glossary-item:first-child {
+  border-top: 1px solid #eef2ee;
+}
+
+.glossary-term {
+  width: 110px;
+  flex: none;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #1e5a38;
+}
+
+.glossary-def strong {
+  display: block;
+  font-size: 13px;
+  color: #173f2c;
+  margin-bottom: 3px;
+}
+
+.glossary-def p {
+  margin: 0;
+  color: #6e7f74;
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+/* 3. Grid de 4 preguntas */
+.reading-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.reading-card {
+  padding: 24px 26px;
+  border: 1px solid #e5ebe6;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 18px rgba(32, 57, 41, 0.035);
+}
+
+.pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  color: #1f6944;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+}
+
+.badge-num {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  background: #173f2c;
+  color: #ffffff;
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.reading-card h3 {
+  margin: 0 0 16px;
+  color: #173f2c;
+  font-size: 17px;
+  font-weight: 650;
+}
+
+.reading-block {
+  margin-bottom: 14px;
+}
+
+.sub-kicker {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #798a7e;
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+}
+
+.reading-block p {
+  margin: 0;
+  color: #55675c;
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+
+.notice-box {
+  margin-top: auto;
+  padding: 12px 14px;
+  background: #f7f9f7;
+  border-radius: 10px;
+}
+
+.notice-kicker {
+  font-size: 9px;
+  font-weight: 700;
+  color: #637768;
+  letter-spacing: 0.08em;
+  margin-bottom: 3px;
+}
+
+.notice-box p {
+  margin: 0;
+  color: #67796d;
+  font-size: 11.5px;
+  line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+  .reading-grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

@@ -14,6 +14,7 @@ const selectedId = ref('');
 const mapZoom = ref(1);
 const mapFocusId = ref('');
 const satelliteEnabled = ref(true);
+const weatherView = ref('General'); // 'General' | 'Hidalgo' | 'Puebla' | 'Tlaxcala'
 const metricItems = [
   { title: 'Rendimiento (t/ha)', value: 'rendimientoTHa' },
   { title: 'Elevación (m)', value: 'elevacionM' },
@@ -71,6 +72,37 @@ const monthly = computed(() => {
     return { label: group[0]?.mesLabel || ['Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct'][m - 4], planet: avg('planetNdvi'), sentinel: avg('sentinel2Ndvi'), rain: avg('precipitacionMm'), tmax: avg('tmaxC'), tmin: avg('tminC') };
   });
 });
+// Mapeo id -> estado
+const parcelState = computed(() => {
+  const map = new Map<string, string>();
+  (data.value?.parcelas || []).forEach((p: Parcel) => map.set(p.id, p.estado));
+  return map;
+});
+
+// Promedios mensuales separados por estado
+const monthlyByState = computed(() => {
+  const rows = (data.value?.mensual || []).filter((r: any) => filteredIds.value.has(r.id));
+  const stateSet = [...new Set(filtered.value.map((p) => p.estado))].sort();
+  const result: { estado: string; months: { label: string; rain: number | null; tmax: number | null; tmin: number | null }[] }[] = [];
+
+  for (const estado of stateSet) {
+    const months = [4, 5, 6, 7, 8, 9, 10].map((m) => {
+      const group = rows.filter((r: any) => r.mes === m && parcelState.value.get(r.id) === estado);
+      const avg = (key: string) => {
+        const vals = group.map((r: any) => Number(r[key])).filter(Number.isFinite);
+        return vals.length ? vals.reduce((a: number, b: number) => a + b, 0) / vals.length : null;
+      };
+      return {
+        label: group[0]?.mesLabel || ['Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct'][m - 4],
+        rain: avg('precipitacionMm'),
+        tmax: avg('tmaxC'),
+        tmin: avg('tminC')
+      };
+    });
+    result.push({ estado, months });
+  }
+  return result;
+});
 const monthlyOptions = computed(() => ({
   chart: { type: 'line', height: 300, toolbar: { show: false }, fontFamily: 'Public Sans, sans-serif' },
   colors: ['#287a52', '#d5a545'],
@@ -85,37 +117,59 @@ const monthlySeries = computed(() => [
   { name: 'NDVI Planet', data: monthly.value.map((m) => m.planet) },
   { name: 'NDVI Sentinel-2', data: monthly.value.map((m) => m.sentinel) }
 ]);
-const weatherOptions = computed(() => ({
-  chart: { type: 'line', height: 270, toolbar: { show: false }, fontFamily: 'Public Sans, sans-serif' },
-  colors: ['#4c89b8', '#ec9b52', '#727e89'],
-  stroke: { curve: 'smooth', width: [0, 3, 3] },
-  plotOptions: { bar: { columnWidth: '38%', borderRadius: 3 } },
-  xaxis: { categories: monthly.value.map((m) => m.label) },
-  yaxis: [
-    {
-      seriesName: 'Precipitación',
-      tickAmount: 5,
-      decimalsInFloat: 0,
-      labels: { minWidth: 28, maxWidth: 36, formatter: (v: number) => String(Math.round(v)) },
-      title: { text: 'Lluvia (mm)' }
-    },
-    {
-      seriesName: ['T. máxima', 'T. mínima'],
-      opposite: true,
-      tickAmount: 5,
-      decimalsInFloat: 0,
-      labels: { minWidth: 28, maxWidth: 36, formatter: (v: number) => String(Math.round(v)) },
-      title: { text: 'Temperatura (°C)' }
-    }
-  ],
-  grid: { borderColor: '#edf1ed', strokeDashArray: 4 },
-  dataLabels: { enabled: false }, legend: { position: 'top' },
-  tooltip: { y: { formatter: (v: number) => v.toFixed(1) } }
-}));
+// Colores temáticos según la opción seleccionada [Lluvia, T.máx, T.mín]
+const weatherPalette: Record<string, [string, string, string]> = {
+  'General':  ['#4c89b8', '#ec9b52', '#727e89'], // Azul clásico, naranja, gris
+  'Hidalgo':  ['#3b82f6', '#1d4ed8', '#60a5fa'], // Gama de azules
+  'Puebla':   ['#e8964a', '#c2410c', '#fdba74'], // Gama de naranjas/terracota
+  'Tlaxcala': ['#287a52', '#14532d', '#6ee7b7']  // Gama de verdes
+};
+
+// Obtenemos los datos mensuales correspondientes (General o el estado seleccionado)
+const selectedWeatherData = computed(() => {
+  if (weatherView.value === 'General') {
+    return monthly.value;
+  }
+  const found = monthlyByState.value.find((g) => g.estado === weatherView.value);
+  return found ? found.months : monthly.value;
+});
+
+const weatherOptions = computed(() => {
+  const colors = weatherPalette[weatherView.value] || weatherPalette['General'];
+  return {
+    chart: { type: 'line', height: 280, toolbar: { show: false }, fontFamily: 'Public Sans, sans-serif' },
+    colors,
+    stroke: { curve: 'smooth', width: [0, 3, 3] },
+    plotOptions: { bar: { columnWidth: '40%', borderRadius: 3 } },
+    xaxis: { categories: selectedWeatherData.value.map((m) => m.label) },
+    yaxis: [
+      {
+        seriesName: 'Precipitación',
+        tickAmount: 5,
+        decimalsInFloat: 0,
+        labels: { minWidth: 28, maxWidth: 36, formatter: (v: number) => String(Math.round(v)) },
+        title: { text: 'Lluvia (mm)' }
+      },
+      {
+        seriesName: ['T. máxima', 'T. mínima'],
+        opposite: true,
+        tickAmount: 5,
+        decimalsInFloat: 0,
+        labels: { minWidth: 28, maxWidth: 36, formatter: (v: number) => String(Math.round(v)) },
+        title: { text: 'Temperatura (°C)' }
+      }
+    ],
+    grid: { borderColor: '#edf1ed', strokeDashArray: 4 },
+    dataLabels: { enabled: false },
+    legend: { position: 'top' },
+    tooltip: { y: { formatter: (v: number) => v != null ? v.toFixed(1) : '—' } }
+  };
+});
+
 const weatherSeries = computed(() => [
-  { name: 'Precipitación', type: 'column', data: monthly.value.map((m) => m.rain) },
-  { name: 'T. máxima', type: 'line', data: monthly.value.map((m) => m.tmax) },
-  { name: 'T. mínima', type: 'line', data: monthly.value.map((m) => m.tmin) }
+  { name: 'Precipitación', type: 'column', data: selectedWeatherData.value.map((m) => m.rain) },
+  { name: 'T. máxima',     type: 'line',   data: selectedWeatherData.value.map((m) => m.tmax) },
+  { name: 'T. mínima',     type: 'line',   data: selectedWeatherData.value.map((m) => m.tmin) }
 ]);
 const grouped = (key: string) => {
   const buckets = new Map<string, Parcel[]>();
@@ -366,11 +420,36 @@ const clearFilters = () => { state.value = ''; municipality.value = ''; search.v
             <div class="panel-header"><div><div class="panel-kicker">DESARROLLO VEGETATIVO</div><h2>NDVI mensual</h2><p>Media entre las parcelas incluidas en el filtro.</p></div><span class="chart-unit">Índice NDVI</span></div>
             <VueApexCharts type="line" height="300" :options="monthlyOptions" :series="monthlySeries" />
           </v-card>
-        </v-col>
+               </v-col>
         <v-col cols="12" xl="5">
           <v-card class="panel chart-panel">
-            <div class="panel-header"><div><div class="panel-kicker">CONDICIONES AMBIENTALES</div><h2>Lluvia y temperatura</h2><p>Resumen mensual del área filtrada.</p></div></div>
-            <VueApexCharts type="line" height="270" :options="weatherOptions" :series="weatherSeries" />
+            <div class="panel-header" style="flex-wrap: wrap; gap: 8px;">
+              <div>
+                <div class="panel-kicker">CONDICIONES AMBIENTALES</div>
+                <h2>Lluvia y temperatura</h2>
+                <p>Resumen mensual · {{ weatherView === 'General' ? 'Todas las parcelas' : weatherView }}</p>
+              </div>
+              <v-btn-toggle
+                v-model="weatherView"
+                mandatory
+                density="compact"
+                variant="outlined"
+                color="primary"
+                rounded="lg"
+              >
+                <v-btn value="General" size="x-small">General</v-btn>
+                <v-btn value="Hidalgo" size="x-small">Hidalgo</v-btn>
+                <v-btn value="Puebla" size="x-small">Puebla</v-btn>
+                <v-btn value="Tlaxcala" size="x-small">Tlaxcala</v-btn>
+              </v-btn-toggle>
+            </div>
+
+            <VueApexCharts 
+              type="line" 
+              height="280" 
+              :options="weatherOptions" 
+              :series="weatherSeries" 
+            />
             <div class="source-caption">Clima interpolado por parcela; sirve como contexto de las observaciones satelitales.</div>
           </v-card>
         </v-col>
@@ -411,9 +490,9 @@ const clearFilters = () => { state.value = ''; municipality.value = ''; search.v
           <v-card class="panel context-panel">
             <div class="context-icon"><span class="context-symbol">▤</span></div>
             <div class="panel-kicker">CONTEXTO DEL PROYECTO</div><h2>El reto de estimar la cosecha</h2>
-            <p>El conjunto integra 197 parcelas de cebada en Hidalgo, Puebla y Tlaxcala. Hay rendimiento observado para 138; las 59 restantes se completan con el método predictivo actual.</p>
-            <p>La estimación de las parcelas sin etiqueta debe interpretarse con cautela: la validación cruzada resume el comportamiento en parcelas conocidas y no elimina la incertidumbre del ciclo.</p>
-            <div class="validation-grid"><div><small>MAE validación cruzada</small><strong>{{ num(data.validacion.maeTHa, 3) }} t/ha</strong></div><div><small>RMSE validación cruzada</small><strong>{{ num(data.validacion.rmseMedioSplitsTHa, 3) }} t/ha</strong></div></div><div class="context-tags"><span>Satélite</span><span>Clima</span><span>Topografía</span></div>
+            <p>El conjunto integra 197 parcelas de cebada en Hidalgo, Puebla y Tlaxcala. Hay rendimiento observado para 138; las 59 restantes se completan con el método predictivo ƒ(Municipio, Area relativa, Pendiente relativa).</p>
+            <p>Asimismo identifica condiciones ambientales, cobertura de datos, Desarrollo vegatativo, Comparativo territorial para una mejor comprensión de los datos recabados.</p>
+            <div class="validation-grid"><div><small>MAE  </small><strong>{{ num(data.validacion.maeTHa, 3) }} t/ha</strong></div><div><small>RMSE  </small><strong>{{ num(data.validacion.rmseMedioSplitsTHa, 3) }} t/ha</strong></div></div><div class="context-tags"><span>Satélite</span><span>Clima</span><span>Topografía</span></div>
           </v-card>
         </v-col>
       </v-row>
