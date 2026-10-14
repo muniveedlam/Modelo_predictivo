@@ -199,7 +199,7 @@ const formatNumber = (value: number | null, digits = 3) => value === null ? '—
       <div class="heading-icon" aria-hidden="true"><Plant2Icon :size="28" :stroke-width="1.8" /></div>
       <div>
         <p class="eyebrow">RAPL AGROTECH</p>
-        <h1>Fenología del Cultivo</h1>
+        <h1>Análisis Ambiental y Satelital</h1>
         <p class="heading-description">Curvas satelitales y rasgos temporales de las parcelas de cebada.</p>
       </div>
     </header>

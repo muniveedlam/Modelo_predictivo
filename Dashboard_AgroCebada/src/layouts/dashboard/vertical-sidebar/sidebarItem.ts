@@ -25,7 +25,7 @@ const sidebarItem: menu[] = [
     to: '/dashboard'
   },
   {
-    title: 'Fenología del Cultivo',
+    title: 'Ambiental y Satelital',
     icon: Plant2Icon,
     to: '/fenologia'
   }
